@@ -1,11 +1,12 @@
 {
-    "wallet_id": 3,
-    "uris": [""],
-    "hash": "",
-    "meta_uris": [""],
-    "meta_hash": "",
-    "royalty_address": "xch1cchazmc92k370genxxpyuzqhtyn8m2acv46n3ue2qwnpu5s4urdqsk9fnj",
-    "royalty_percentage": 300,
-    "target_address": "",
-    "fee": 100
-  }
+  "wallet_id": 3,
+  "uris": [""],
+  "hash": "",
+  "meta_uris": [""],
+  "meta_hash": "",
+  "royalty_address": "xch1cchazmc92k370genxxpyuzqhtyn8m2acv46n3ue2qwnpu5s4urdqsk9fnj",
+  "royalty_percentage": 300,
+  "target_address": "",
+  "mint_from_did": true,
+  "fee": 100
+}
