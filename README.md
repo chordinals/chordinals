@@ -15,7 +15,7 @@ This script encodes files into data URL's, supporting various file types and cor
 2.  **Run from the command line:**
 
     ```bash
-    python chordinals.py <filename>
+    python chordinals.py encode <filename>
     ```
 
     Replace `<filename>` with the path to the file you want to encode.
@@ -36,5 +36,5 @@ Unit tests are provided in the `tests` directory. To run the tests:
 ## Example
 
 ```bash
-python chordinals.py my_image.png
+python chordinals.py encode my_image.png
 ```

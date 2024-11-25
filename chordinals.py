@@ -8,6 +8,7 @@ import sys
 import base64
 import mimetypes
 
+
 def encode_content(content, mediatype):
     """Encodes content based on its MIME type.
 
@@ -43,12 +44,13 @@ def encode_for_data_url(filename):
     # Guess the MIME type based on the filename
     mediatype, _ = mimetypes.guess_type(filename)
     # use text/plain for json, for now to test
-    #if mediatype == "application/json":
+    # if mediatype == "application/json":
     #    mediatype = "text/plain"
     if mediatype is None:
         mediatype = "application/octet-stream"  # Default to generic binary type
 
-    mode = "r" if (mediatype.startswith("text/") or mediatype == "application/json") else "rb"
+    mode = "r" if (mediatype.startswith("text/")
+                   or mediatype == "application/json") else "rb"
 
     with open(filename, mode) as f:
         try:
@@ -61,25 +63,24 @@ def encode_for_data_url(filename):
 
     encoded_data = encode_content(content, mediatype)
     # Include charset=utf-8 for text-based MIME types
-    #print(mediatype)
+    # print(mediatype)
     if mediatype.startswith("text/") or mediatype == "application/json":
-        #uri = f"data:{mediatype};charset=utf-8,{encoded_data}"
+        # uri = f"data:{mediatype};charset=utf-8,{encoded_data}"
         uri = f"data:{mediatype};base64,{encoded_data}"
-    #else:
+    # else:
     #    if mediatype == "application/json": # must be utf-8 per JSON spec
     #        uri = f"data:{mediatype};base64,{encoded_data}"
     else:
         uri = f"data:{mediatype};base64,{encoded_data.decode()}"
-
 
     return uri
 
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python chordinals.py <filename>")
+        print("Usage: python chordinals.py encode <filename>")
         sys.exit(1)
 
-    input_filename = sys.argv[1]
+    input_filename = sys.argv[2]
     output_uri = encode_for_data_url(input_filename)
     print(output_uri)
