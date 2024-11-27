@@ -32,11 +32,11 @@ def main():
     feemojos = sys.argv[4]
 
     # 1. Encode urifile and calculate its hash
-    uri_data_uri = chordinals.encode_for_data_uri(urifile)
+    uri_data_uri = chordinals.encode_for_data_url(urifile)
     uri_hash = calculate_sha256_hash(urifile)
 
     # 2. Encode metadatafile.json and calculate its hash
-    metadata_data_uri = chordinals.encode_for_data_uri(metadatafile)
+    metadata_data_uri = chordinals.encode_for_data_url(metadatafile)
     metadata_hash = calculate_sha256_hash(metadatafile)
 
     # 3. Read template.json
