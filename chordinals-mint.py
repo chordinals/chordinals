@@ -3,6 +3,7 @@ import hashlib
 import sys
 import subprocess
 import tempfile
+import argparse
 import chordinals
 
 
@@ -22,14 +23,20 @@ def calculate_sha256_hash(input_filename):
 
 
 def main():
-    if len(sys.argv) != 5:
-        print("Usage: python3 mint-chordinal.py urifile metadatafile.json address feemojos")
-        sys.exit(1)
+    parser = argparse.ArgumentParser(description="Mint a chordinal NFT")
+    parser.add_argument("urifile", type=str, help="Path to the URI file")
+    parser.add_argument("metadatafile", type=str,
+                        help="Path to the metadata JSON file")
+    parser.add_argument("address", type=str, help="Your wallet address")
+    parser.add_argument("feemojos", type=str, help="Feemojos to spend")
+    parser.add_argument("--dryrun", action="store_true",
+                        help="Perform a dry run without actually minting")
+    args = parser.parse_args()
 
-    urifile = sys.argv[1]
-    metadatafile = sys.argv[2]
-    address = sys.argv[3]
-    feemojos = sys.argv[4]
+    urifile = args.urifile  # sys.argv[1]
+    metadatafile = args.metadatafile  # sys.argv[2]
+    address = args.address  # sys.argv[3]
+    feemojos = args.feemojos  # sys.argv[4]
 
     # 1. Encode urifile and calculate its hash
     uri_data_uri = chordinals.encode_for_data_url(urifile)
@@ -59,18 +66,16 @@ def main():
     # Construct the chia rpc command using the temporary file path
     command = f"chia rpc wallet nft_mint_nft -j {temp_file_path}"
 
-    # Construct the chia rpc command
-    # command = f"chia rpc wallet nft_mint_nft '{json.dumps(template_json)}'"
-    # command = f"chia rpc wallet nft_mint_nft '{json.dumps(template_json)}'"
-    # command = f"chia wallet nft mint -i 3 -ta {address} -u {uri_data_uri} -nh {uri_hash} -mu {shlex.quote(metadata_data_uri.replace("\n", "\\n"))} -mh {metadata_hash} -m {(int(feemojos)/1e12):.12f}"
-    # command = f"chia rpc wallet nft_mint_nft '{template_json}'"
     print(command)
 
     # Run the command
-    try:
-        subprocess.run(command, shell=True, check=True)
-    except subprocess.CalledProcessError as e:
-        print(f"Error minting NFT: {e}")
+    if args.dryrun:
+        print(template_json)
+    else:
+        try:
+            subprocess.run(command, shell=True, check=True)
+        except subprocess.CalledProcessError as e:
+            print(f"Error minting NFT: {e}")
 
 
 if __name__ == "__main__":
