@@ -16,7 +16,7 @@ This is an early beta release, and CLI instructions may change as we improve the
 python3 chordinals-mint.py urifile metadatafile.json address feemojos
 ```
 
-where urifile is the content file of the Chordinal, metadatafile.json is the CHIP-0007 metadata file for it, address is the address for the chordinal to be sent to, and feemojos is the blockchain fee in mojos to incentivize farmers to include the mint transaction in a block.
+where urifile is the content file of the Chordinal, metadatafile.json is the CHIP-0007 metadata file for it, address is the address for the chordinal to be sent to, and feemojos is the blockchain fee in mojos to incentivize farmers to include the mint transaction in a block. You can use --dryrun to output info without submitting the transaction to the blockchain.
 
 #### Example Usage
 
