@@ -27,7 +27,7 @@ python3 chordinals-mint.py test.png metadatatest.json xch1cchazmc92k370genxxpyuz
 ### Reference Links
 
 - [Chordinals](https://www.chordinals.com/)
-- [Chordiforge](https://www.chordiforge.com/)
+- [Chordifun](https://www.chordifun.com/)
 - [Anarkoic](https://www.anarkoic.com/)
 
 ## Data URI Encoder
