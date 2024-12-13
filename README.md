@@ -2,6 +2,10 @@
 
 [Chordinals](https://www.chordinals.com/) are onchain NFT's on the Chia blockchain. They must only use onchain URI's in the 3 NFT1 URI fields, uri's, metadata uri's and license uri's.
 
+# NOTE: WINDOWS BUG KNOWN AND IN PROCESS OF BEING FIXED
+
+Bug affects files with newlines in them. We'll post here once resolved. In the meantime, Windows users can use metadata.json's without newlines and avoid data files with newlines. Should have it resolved later today.
+
 There are two scripts, one for encoding and one for minting an individual Chordinal. We'll probably combine these into one script soon.
 
 This is an early beta release, and CLI instructions may change as we improve the code in future versions.
