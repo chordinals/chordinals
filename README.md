@@ -1,4 +1,4 @@
-# Chordinals early beta 0.1
+# Chordinals early beta 0.2
 
 [Chordinals](https://www.chordinals.com/) are onchain NFT's on the Chia blockchain. They must only use onchain URI's in the 3 NFT1 URI fields, uri's, metadata uri's and license uri's.
 
