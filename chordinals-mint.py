@@ -5,10 +5,13 @@ import subprocess
 import tempfile
 import argparse
 import chordinals
+import mimetypes
 
 
 def calculate_sha256_hash(input_filename):
     """Calculates the SHA-256 hash of a file's content.
+    
+    Treats all files as binary to ensure consistent hashes across platforms.
 
     Args:
       input_filename: The path to the file to hash.
@@ -17,8 +20,8 @@ def calculate_sha256_hash(input_filename):
       A string containing the hexadecimal representation of the hash.
     """
     with open(input_filename, 'rb') as f:
-        file_content = f.read()
-        sha256_hash = hashlib.sha256(file_content).hexdigest()
+        content = f.read()
+    sha256_hash = hashlib.sha256(content).hexdigest()
     return sha256_hash
 
 
