@@ -2,11 +2,7 @@
 
 [Chordinals](https://www.chordinals.com/) are onchain NFT's on the Chia blockchain. They must only use onchain URI's in the 3 NFT1 URI fields, uri's, metadata uri's and license uri's.
 
-# NOTE: WINDOWS BUG KNOWN AND IN PROCESS OF BEING FIXED
-
-Bug affects files with newlines in them. We'll post here once resolved. In the meantime, Windows users can use metadata.json's without newlines and avoid data files with newlines. Should have it resolved later today.
-
-There are two scripts, one for encoding and one for minting an individual Chordinal. We'll probably combine these into one script soon.
+There are two scripts, one for encoding and one for minting an individual Chordinal.
 
 This is an early beta release, and CLI instructions may change as we improve the code in future versions.
 
@@ -14,18 +10,56 @@ This is an early beta release, and CLI instructions may change as we improve the
 
 ### To mint a single Chordinal
 
-- Review the values in the template.json file, updating the wallet_id and royalty values etc. as needed
+1. Review the values in the `template.json` file, updating the `wallet_id` and `royalty` values etc. as needed
 
-```
-python3 chordinals-mint.py urifile metadatafile.json address feemojos
+2. Run the minting script:
+
+```bash
+python3 chordinals_mint.py urifile metadatafile.json address feemojos [--dryrun]
 ```
 
-where urifile is the content file of the Chordinal, metadatafile.json is the CHIP-0007 metadata file for it, address is the address for the chordinal to be sent to, and feemojos is the blockchain fee in mojos to incentivize farmers to include the mint transaction in a block. You can use --dryrun to output info without submitting the transaction to the blockchain.
+Arguments:
+
+- `urifile`: The content file of the Chordinal
+- `metadatafile.json`: The CHIP-0007 metadata file
+- `address`: The address where the chordinal will be sent
+- `feemojos`: The blockchain fee in mojos to incentivize farmers
+- `--dryrun`: Optional flag to preview the transaction without submitting to blockchain
 
 #### Example Usage
 
+```bash
+# Preview without minting
+python3 chordinals_mint.py test.png metadatatest.json xch1cchazmc92k370genxxpyuzqhtyn8m2acv46n3ue2qwnpu5s4urdqsk9fnj 100 --dryrun
+
+# Mint a Chordinal
+python3 chordinals_mint.py test.png metadatatest.json xch1cchazmc92k370genxxpyuzqhtyn8m2acv46n3ue2qwnpu5s4urdqsk9fnj 100
 ```
-python3 chordinals-mint.py test.png metadatatest.json xch1cchazmc92k370genxxpyuzqhtyn8m2acv46n3ue2qwnpu5s4urdqsk9fnj 100
+
+## Data URI Encoder
+
+The `chordinals.py` script encodes files into data URLs for use in Chordinals. It handles all file types consistently and preserves file content exactly.
+
+### Features
+
+- **MIME Type Detection:** Automatically determines the MIME type of input files
+- **Consistent Encoding:** Treats all files as binary data to ensure consistent results
+- **Base64 Encoding:** Encodes content using base64 for blockchain compatibility
+
+### Usage
+
+```bash
+python chordinals.py encode <filename>
+```
+
+Replace `<filename>` with the path to the file you want to encode. The script will output the data URI representation of the file.
+
+### Testing
+
+The repository includes unit tests to verify encoding consistency. To run the tests:
+
+```bash
+python -m pytest test_chordinals.py -v
 ```
 
 ### Reference Links
@@ -33,44 +67,3 @@ python3 chordinals-mint.py test.png metadatatest.json xch1cchazmc92k370genxxpyuz
 - [Chordinals](https://www.chordinals.com/)
 - [Chordifun](https://www.chordifun.com/)
 - [Anarkoic](https://www.anarkoic.com/)
-
-## Data URI Encoder
-
-This script encodes files into data URL's, supporting various file types and correctly handling both text and binary data.
-
-### Features
-
-- **MIME Type Detection:** Automatically determines the MIME type of the input file using the `mimetypes` module.
-- **Text and Binary Handling:** Correctly encodes both text and binary files.
-- **Base64 Encoding for Binary & Text:** Encodes binary and text content using base64.
-- **Error Handling:** Includes fallback mechanisms to handle potential errors during file reading.
-
-### Usage
-
-1.  **Save the script:** Save the code as a Python file (e.g., `chordinals.py`).
-2.  **Run from the command line:**
-
-    ```bash
-    python chordinals.py encode <filename>
-    ```
-
-    Replace `<filename>` with the path to the file you want to encode.
-
-    The script will output the data URI representation of the file to the console.
-
-### Testing
-
-Unit tests are provided in the `tests` directory. To run the tests:
-
-1.  **Make sure you have the `tests` directory** with the test files (`test.txt`, `test.png`, etc.) in the same directory as the script.
-2.  **Run the tests from the command line:**
-
-    ```bash
-    python -m unittest tests/test_encoding.py
-    ```
-
-### Example
-
-```bash
-python chordinals.py encode my_image.png
-```
